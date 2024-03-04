@@ -1,23 +1,40 @@
 import React,{useState,useEffect} from 'react'
 import { add } from '../Store/cartSlice';
-import { useDispatch } from 'react-redux';
-
-const Products = () => {
-    const [products,setProducts]=useState([]);
+import { useDispatch,useSelector } from 'react-redux';
+import {fetchProducts} from '../Store/productSlice';
+import { STATUSES } from '../Store/productSlice';
+ const Products = () => {
+  const {data:products,status} =useSelector((state)=> state.product)
+    // const [products,setProducts]=useState([]);
     useEffect(()=>{
-        const fetchData= async ()=>{
-        const response= await fetch('https://fakestoreapi.com/products');
-        const data= await response.json();
-        setProducts(data)
-        console.log(data)
-    }
-    fetchData()
+      dispatch(fetchProducts()); 
+    //   const fetchData= async ()=>{
+    //     // const response= await fetch('https://fakestoreapi.com/products');
+    //     // const data= await response.json();
+    //     // setProducts(data)
+    //     // console.log(data)
+    // }
+    // fetchData()
     },[]);
     const dispatch=useDispatch()
     const handleAdd=(product)=>{
 dispatch(add(product))
     }
-    
+    if(status === STATUSES.LOADING){
+      return <div style={{height:'100vh',width:'100vw'}} className='d-flex align-items-center justify-content-center'>
+         <div className="spinner-border m-5" role="status" style={{width:'200px',height:'200px'}}>
+      <span className="visually-hidden">Loading...</span>
+    </div>
+      </div>
+    }
+    if(status === STATUSES.ERROR){
+      return <div style={{height:'100vh',width:'100vw'}} className='d-flex align-items-center justify-content-center'>
+<span>
+<i className="bi bi-exclamation-triangle text-danger display-1"></i>
+<p className='text-danger py-3'>Error 404</p>
+</span>
+      </div>
+    }
     return (
     <div>
         <div className="row container-fluid align-item-center justify-content-center">
