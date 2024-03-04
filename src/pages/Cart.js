@@ -17,7 +17,7 @@ const handleDelete=(itemId)=>{
     items.map(item=>(
       <a className="my-3 py-5 rounded-3 list-group-item list-group-item-action" aria-current="true">
     <div className="d-flex w-100 justify-content-between">
-    <img src={item.images} className='w-img' alt="" />
+    <img src={item.image} className='w-img' alt="" />
     <div className='mx-3 position-relative'>
     <h5 className="mb-1">{item.title}</h5>
     <p className="mb-1">{item.description}</p>

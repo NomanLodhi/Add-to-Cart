@@ -6,7 +6,7 @@ const Products = () => {
     const [products,setProducts]=useState([]);
     useEffect(()=>{
         const fetchData= async ()=>{
-        const response= await fetch('https://api.escuelajs.co/api/v1/products');
+        const response= await fetch('https://fakestoreapi.com/products');
         const data= await response.json();
         setProducts(data)
         console.log(data)
@@ -24,7 +24,7 @@ dispatch(add(product))
      {
         products.map((product)=>(
                 <div className="card m-3 col-lg-3 " height='30px'>
-  <img src={product.images} className="card-img-top h-50" alt="..."/>
+  <img src={product.image} className="card-img-top h-50" alt="..."/>
   <div className="card-body">
     <h5 className="card-title">{product.title}</h5>
  <div style={{display:'flex',justifyContent:'space-evenly'}} className='py-3'> 
